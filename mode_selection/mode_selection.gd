@@ -1,5 +1,5 @@
 ## Tela de seleção de modo online ou local
-extends Control
+extends TextureRect
 
 ## Signal emitido quando o botão [member ModeSelection.local_mode_btn] é pressionado
 signal local_mode_selected
@@ -37,26 +37,23 @@ var player_name: String
 @export
 var room_name: String
 
-func assertAllNonNull():
-	var props: Array[Dictionary] = get_property_list()
-	for prop in props:
-		assert(get(prop["name"]) != null)
-
 func _ready():
-	assertAllNonNull()
 	player_name_input.text_changed.connect(
-		func():
+		func(_name: String):
 			error_message.text=""
-			player_name=player_name_input.text.strip_edges(true, true)
+			player_name=_name.strip_edges(true, true)
 			if player_name.is_empty():
+				print("player name is empty")
 				error_message.text="Insira seu nome de jogador"
 	)
 
 	room_name_input.text_changed.connect(
-		func():
+		func(_name: String):
+			print("room chang")
 			error_message.text=""
-			room_name=room_name_input.text.strip_edges(true, true)
+			room_name=_name.strip_edges(true, true)
 			if room_name.is_empty():
+				print("room name is empty")
 				error_message.text="Insira o nome da sala para jogar"
 	)
 

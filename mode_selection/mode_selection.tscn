@@ -1,12 +1,80 @@
-[gd_scene load_steps=2 format=3 uid="uid://cutk8uxbejj52"]
+[gd_scene load_steps=8 format=3 uid="uid://cutk8uxbejj52"]
 
 [ext_resource type="Script" path="res://mode_selection/mode_selection.gd" id="1_mc8nd"]
+[ext_resource type="Script" path="res://ui/auto_font_text_edit.gd" id="2_m8tui"]
+[ext_resource type="Script" path="res://ui/auto_font_label.gd" id="3_uppg6"]
 
-[node name="ModeSelection" type="Control"]
-layout_mode = 3
+[sub_resource type="Gradient" id="Gradient_qplp2"]
+offsets = PackedFloat32Array(0.0347826)
+colors = PackedColorArray(0.338, 0.65, 0.338, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1rilo"]
+gradient = SubResource("Gradient_qplp2")
+
+[sub_resource type="Gradient" id="Gradient_wpb08"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.319878, 0.1947, 0.59, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_x25g3"]
+gradient = SubResource("Gradient_wpb08")
+
+[node name="ModeSelection" type="TextureRect" node_paths=PackedStringArray("local_mode_btn", "online_mode_btn", "player_name_input", "error_message", "room_name_input")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = SubResource("GradientTexture1D_1rilo")
 script = ExtResource("1_mc8nd")
+local_mode_btn = NodePath("VBoxContainer/LocalModeBtn")
+online_mode_btn = NodePath("VBoxContainer/OnlineMode")
+player_name_input = NodePath("VBoxContainer/PlayerName")
+error_message = NodePath("VBoxContainer/Label")
+room_name_input = NodePath("VBoxContainer/RoomName")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.275
+anchor_top = 0.073
+anchor_right = 0.725
+anchor_bottom = 0.927
+offset_left = 0.199982
+offset_top = 0.195995
+offset_right = -0.200012
+offset_bottom = -0.196045
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="LocalModeBtn" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = SubResource("GradientTexture1D_x25g3")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="OnlineMode" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = SubResource("GradientTexture1D_x25g3")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="PlayerName" type="TextEdit" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Nome de jogador"
+script = ExtResource("2_m8tui")
+min_size = null
+max_size = null
+
+[node name="RoomName" type="TextEdit" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Nome da sala"
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("3_uppg6")
